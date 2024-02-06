@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
-import { App } from "./components/App";
+import { App } from "@/components/App";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { About, Shop } from "./pages";
+import { About, Shop } from "@/pages";
 import { Suspense } from "react";
 
 const root = ReactDOM.createRoot(
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: (
-          <Suspense fallback={'Загрузка...'}>
+          <Suspense fallback={"Загрузка..."}>
             <About />
           </Suspense>
         ),
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: (
-          <Suspense fallback={'Загрузка...'}>
+          <Suspense fallback={"Загрузка..."}>
             <Shop />
           </Suspense>
         ),
