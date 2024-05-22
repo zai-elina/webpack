@@ -7,6 +7,40 @@ export default function buildLoaders(
 ): ModuleOptions["rules"] {
   const isDev = options.mode === "development";
 
+  const assetLoader = {
+    test: /\.(png|jpg|jpeg|gif)$/i,
+    type: "asset/resource",
+  };
+
+  const svgLoader = {
+    test: /\.svg$/i,
+    use: [
+      {
+        loader: "@svgr/webpack",
+        options: {
+          svgoConfig: {
+            plugins: [
+              {
+                name: "preset-default",
+                params: {
+                  overrides: {
+                    removeViewBox: false,
+                  },
+                },
+              },
+              {
+                name: "convertColors",
+                params: {
+                  currentColor: true,
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+  };
+
   const cssLoaderWithModules = {
     loader: "css-loader",
     options: {
@@ -36,5 +70,5 @@ export default function buildLoaders(
     exclude: /node_modules/,
   };
 
-  return [scssLoader, tsLoader];
+  return [scssLoader, tsLoader, assetLoader, svgLoader];
 }
