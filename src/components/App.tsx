@@ -10,6 +10,7 @@ export const App: FC = () => {
   const increment = () => setCount((prev) => prev + 1);
   return (
     <div>
+      <h1>PLATFORM:{__PLATFORM__}</h1>
       <Link to="/about">about</Link>
       <br />
       <Link to="/shop">shop</Link>
