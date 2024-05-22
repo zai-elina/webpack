@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --env mode=development",
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",
-    "start": "webpack serve --env mode=development"
+    "build:mobile": "webpack --env mode=production --env platform=mobile",
+    "build:desktop": "webpack --env mode=production --env platform=desktop",
+    "typecheck": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.13",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
@@ -20,22 +24,25 @@
     "@types/webpack-bundle-analyzer": "^4.6.3",
     "@types/webpack-dev-server": "^4.7.2",
     "css-loader": "^6.9.1",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.7",
+    "react-refresh-typescript": "^2.0.9",
     "sass": "^1.69.7",
     "sass-loader": "^14.0.0",
     "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "webpack": "^5.89.0",
+    "webpack": "^5.91.0",
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.23.1"
   }
 }

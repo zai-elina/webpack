@@ -1,12 +1,13 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { Configuration, ProgressPlugin } from "webpack";
+import { Configuration, DefinePlugin, ProgressPlugin } from "webpack";
 import { BuildOptions } from "./types/types";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 
 export function buildPlugins(options: BuildOptions): Configuration["plugins"] {
-  const { mode, paths, analyzer } = options;
+  const { mode, paths, analyzer, platform } = options;
   const isDev = mode === "development";
   const isProd = mode === "production";
 
@@ -15,10 +16,16 @@ export function buildPlugins(options: BuildOptions): Configuration["plugins"] {
     new HtmlWebpackPlugin({
       template: paths.html,
     }),
+    // подменяем глобальые переменные в коде на переменные при сборке
+    new DefinePlugin({
+      __PLATFORM__: JSON.stringify(platform),
+    }),
   ];
 
   if (isDev) {
     plugins.push(new ProgressPlugin()); //процент того на сколько прошла сборка
+    plugins.push(new ForkTsCheckerWebpackPlugin());
+    plugins.push(new ReactRefreshWebpackPlugin()); // для hot module replacement
   }
 
   if (isProd) {
